@@ -1,4 +1,4 @@
 # Branching out
 
 ---
-[[Next: ]()] [[Prev: ]()] [[Home](./README.md)]
+[Home](./README.md) | [Previous:]() | [Next:]()

@@ -43,4 +43,4 @@ as a free alternative and rapidly became the de facto choice for source control.
   _Dev --> Testing --> Release_).
 
 ---
-[[Next: The Git mindset](./git-mindset.md)] [[Home](./README.md)]
+[Home](./README.md) | Previous | [Next: The Git mindset](./git-mindset.md)
