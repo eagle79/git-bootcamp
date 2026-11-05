@@ -1,5 +1,5 @@
 # The Git mindset
-> [!NOTE] A word of advice
+> [!NOTE]
 > If you're coming from an older version control system like SVN or CVS and you're having trouble making the leap
 > to Git, try putting the concepts from the old system out of your mind entirely. Git conceptually works quite 
 > differently in many fundamental ways and sometimes it's difficult to map ideas from one system to another.
@@ -38,7 +38,7 @@ If this feels a bit deep in the weeds, it's because it is! The key takeaway is t
 local database with "records" keyed by the SHA-1 hash of their contents (and other metadata). When we talk about 
 commits, we're really just talking about an object that represents a particular snapshot of the repository's contents. 
 
-> [!NOTE] Git hashes
+> [!NOTE]
 > In most examples in this text, you'll see a commit hash shown as an abbreviated "prefix", which is common  practice 
 > when using Git. All Git commands will accept a hash prefix as short as 7 characters so long as it unambiguously 
 > references a single commit.
@@ -56,7 +56,7 @@ For example, a DAG might look something like this:
 
 ![Example commit graph](./resources/git-mindset/ex2.png)
 
-> [!NOTE] DAG terminology
+> [!NOTE]
 > Most users never use the term "DAG". This concept is often just called a commit graph, or even just "history".
 
 ## Local-first
