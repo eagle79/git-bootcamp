@@ -49,7 +49,7 @@ You can use the command `git clone` to clone an existing repository. The `git cl
 > go into detail about how to set up authentication or how to get the necessary URL.
 
 This will:
-* Download a complete copy of the commit history and object database (the `./.git` folder).
+* Download a copy of the commit history and object database (the `./.git` folder).[^1]
 * Set up a default remote pointer named `origin` (we will discuss this more in [Branching out](./branching.md)).
 * Check out the default branch (typically `main` or `master`) into your working directory.
 
@@ -81,9 +81,12 @@ repository. A few highlights:
 * `HEAD` - a text file containing a pointer to your current working context (usually the branch you're working on).
 * `config` - configuration file (INI-style) containing repository-local settings.
 * `index` - a binary file representing the staging area (more on this later).
-* `objects/` - the content-addressable database; this contains every content blob, tree, commit, and tag object in the
-  repository
+* `objects/` - the content-addressable database; this contains the repository's content blobs, trees, commits, and tag 
+  objects.[^2]
 * `refs/` - this is the reference store; it contains pointers to tracking branches, tags, and remotes
 
+[^1]: Technically a normal clone fetches all history reachable from the remote's advertised refs (active branches, tags,
+    etc.). In practice, this is all content a user needs for most purposes.
+[^2]: This is a simplification of Git internals. The reality is a more complicated, but unimportant for this document.
 ---
 [Home](./README.md) | [Previous: The Git mindset](./git-mindset.md) | [Next: Day-to-day Git](./day-to-day-git.md)

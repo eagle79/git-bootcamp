@@ -1,6 +1,6 @@
 # Versioning through the ages
 Let's start at the beginning. In 1459, the first known second edition of _Psalterium Benedictinum_ was published by... 
-Okay, maybe not _that_ far back..
+Okay, maybe not _that_ far back...
 
 Generally speaking, version control techniques for source code can be grouped into three basic paradigms.
 
@@ -12,9 +12,9 @@ base file alongside a series of "deltas" that could be traced through to produce
 
 ## Centralized version control (1990s-2000s)
 Source files and history were stored on centralized servers. Developers would check out a file from the server, edit it
-and commit (or "check in") the changes they made back to the server. These systems were also the first to introduce 
-the concept of branching (divergent parallel development on the same codebase), but the process was often tedious and
-resolving conflicts when merging a branch back in could be difficult.
+and commit (or "check in") the changes they made back to the server. These systems also popularized the concept of 
+branching (divergent parallel development on the same codebase), but the process was often tedious and resolving 
+conflicts when merging a branch back in could be difficult.
 
 The primary tools of this era were **CVS (Concurrent Versions System)** and its improved successor 
 **SVN (Subversion)**. A proliferation of commercial products were also created during this timeframe, including 

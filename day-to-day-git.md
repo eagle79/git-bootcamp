@@ -16,12 +16,13 @@ Git defines three primary states/areas for file changes to reside:
   area is a planning tool for commits. As you modify files for a given change, you can add/remove those modifications 
   to/from the index (this is called "staging" the changes/files). Or if you are working on multiple (non-overlapping)
   changes, you can stage all the files for one change and commit that change only.
-* **The commit** - Official record of a change. Once created, a commit cannot be modified. A commit is _always_ 
+* **The commit** - Official record of a change. Once created, a commit cannot be modified[^1]. A commit is _always_ 
   created from the staging area, which represents the intended change.
 
 > [!NOTE]
 > It's useful to be aware of the difference between "tracked" and "untracked" files. A "tracked" file is one that has
-> been at least staged. All other files are "untracked" in that the git repository is "unaware" of their presence 
+> been at least staged (though it will become "untracked" again if the file is unstaged without being committed). All 
+> other files are "untracked" in that the git repository is "unaware" of their presence 
 > (though git itself may reference them in commands like `git status`).
 
 Let's prepare an initial state for our test repository. In the root of the repository directory, create three files 
@@ -48,8 +49,9 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 `git status` tells us the following:
-* **Branch information** - What branch we're on and whether we're up-to-date with the remote. We are on branch `main` 
-  (or `master`, depending on your settings) and we do not have a remote, so that information is not present.
+* **Branch information** - What branch we're on and whether we're up-to-date with the information we have for the 
+  remote[^2]. We are on branch `main` (or `master`, depending on your settings) and we do not have a remote, so that 
+  information is not present.
 * **Changes to be committed (staging area)** - Files that have been staged and are ready to be included in the next 
   commit. We haven't staged anything yet, so this section is absent.
 * **Untracked files** - File changes in the working area that are not staged. Here we see all three of our new files.
@@ -58,7 +60,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 ## Staging changes
 Let's get our files into the history. We start _planning_ our commit by adding our files to the staging area. There are
 many different ways we can do that, all using the command `git add`. Pick your poison and get the new files staged in 
-your test repository.:
+your test repository:
 ```bash
 # stage individual files one at a time
 $ git add foo.txt
@@ -214,16 +216,16 @@ like this:
 
 ## Viewing the commit history
 Great! But how do we see the change in the repository history? For that, we use `git log`. This command has an 
-incredibly rich set of options (far too many to list here). The Base command (`git log`) lists the entire commit history
-of the current branch, starting with the most recent commit and going all the way to the initial commit.
+incredibly rich set of options (far too many to list here). The basic command (`git log`) lists the entire commit 
+history of the current branch, starting with the most recent commit and going all the way to the initial commit.
 
 From there, we'll start looking at various options:
 
 | Option                       | Description                                                                        |
 | ---------------------------- | ---------------------------------------------------------------------------------- |
 | `--oneline`                  | Display each commit in a compact, one-line format                                  |
-| `--graph`                    | Display a text-base graph of commits (useful when examining branches)              |
-| `--all`                      | View changes across all branches, not just the current one                         |
+| `--graph`                    | Display a text-based graph of commits (useful when examining branches)             |
+| `--all`                      | View changes across the repository, not just the current branch                    |
 | `-n <number>` or `-<number>` | View only the last `<number>` commits                                              |
 | `--stat`                     | Include high-level file insertion/deletion statistics for each commit              |
 | `--author="<author>"`        | Filter commits to those written by a specific author                               |
@@ -233,7 +235,7 @@ From there, we'll start looking at various options:
 
 Some common combinations:
 * `git log --oneline -n 20` - Quick history of recent commits
-* `git log --graph --oneline --all` - A text-based graphical view of the commit tree for the current branch. Many 
+* `git log --graph --oneline --all` - A text-based graphical view of the commit tree for the repository. Many 
   developers create an alias for this command as `git tree`
 * `git log --oneline -- foo.txt` - The history of `foo.txt` starting in the current branch (add `--all` to see it 
   across the whole repository)
@@ -280,5 +282,9 @@ Before moving on, take some time to play with your test repository. Add changes,
 you might want to experiment with. Just don't remove any of the three test files, as they will be referenced in later
 sections.
 
+[^1]: While this is technically true, there are ways to "rewrite history". These techniques do not modify existing 
+    commits, but rather remove them from the graph and re-create new (modified) commits in their place.
+[^2]: `git status` does not retrieve information from the remote, but works on the currently known information. To 
+    update information about the remote, we use `git fetch`, which is discussed in [Collaborating](collaborating.md).
 ---
 [Home](./README.md) | [Previous: Getting started](./getting-started.md) | [Next: Branching out](./branching.md)

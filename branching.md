@@ -1,6 +1,6 @@
 # Branching out
 Writing software in a team setting is messy. Each developer has their own priorities and tasks, and inevitably, we need
-to modify the same resources at the same time. Git was baptized with fire in its early day by acting as the system of
+to modify the same resources at the same time. Git was baptized with fire in its early days by acting as the system of
 choice for Linux kernel development. The primary tool in its arsenal for dealing with this problem is the branch.
 
 Even at its inception, branching was not a new concept. In fact, the earliest system to introduce branching was SCCS, 
@@ -38,8 +38,8 @@ automatically move the pointer. So far, we've used `git commit`, which creates a
 the staging area and then changes `HEAD` to point to the new commit. So for our repository, `HEAD` points to commit 
 `9409929`.
 
-When we created our repository (using `git init`), Git automatically created our first branch, called `main`. This is 
-just another pointer, and is also automatically moved with each commit (to the branch) as well. So here is our graph 
+When we created our repository (using `git init`), Git automatically created our first branch[^1], called `main`. This
+is just another pointer, and is also automatically moved with each commit (to the branch) as well. So here is our graph 
 with `HEAD` and `main` annotated:
 
 ![Annotated repository state](./resources/branching/ex2.png)
@@ -64,8 +64,8 @@ $ git status
 On branch edits
 nothing to commit, working tree clean
 ```
-Now we have a new branch pointer on our graph. Note that the `HEAD` pointer did not move. However, Git is aware we are
-now following `edits`:
+Now we have a new branch pointer on our graph. Note that the `HEAD` pointer still points to the same commit. However, 
+Git has updated the pointer to follow `edits` instead of `main`:
 
 ![Annotated repository state after adding new branch](./resources/branching/ex3.png)
 
@@ -84,9 +84,13 @@ branches point to.
 Let's get those changes into `main`.
 
 There are actually _many_ ways to merge changes in git, but the primary techniques are:
-* **Fast-forward merge** - Used when the target branch hasn't diverged, we can just move the branch pointer forward
-* **Three-way merge** - Creates a merge that ties two parent commits together. This merge can also be used when the
-  target branch has not diverged, but the reverse is not true (you cannot fast-forward merge divergent histories).
+* **Three-way merge** - Creates a merge that ties two parent commits together. A new commit is created applying the 
+  changes from the merged branch. 
+* **Fast-forward merge** - When the target branch hasn't diverged, we can just move the branch pointer forward. 
+
+> [!NOTE]
+> Three way merges are required when merging divergent histories and optional any time a fast-forward merge is possible
+> (by supplying the `--no-ff` flag).
 
 In most cases, Git will choose between these options for us when we use the `git merge` command.
 
@@ -182,5 +186,6 @@ This leaves the graph intact, and simply removes the branch pointer:
 > Switched to a new branch 'edits'
 > ```
 
+[^1]: Technically, it sets up an "unborn" initial branch that will be created on the first commit.
 ---
 [Home](./README.md) | [Previous: Day-to-day Git](./day-to-day-git.md) | [Next: Collaborating](./collaborating.md)

@@ -7,14 +7,14 @@ is on the way Git works to track changes in a flexible manner.
 
 ## Setup
 Before getting started, please ensure the system you're using has Git installed and configured. This guide will show
-examples using POSIX-style syntax, but most commands (especially Git commands) will be similar on Windows. This guide
+examples using bash-style syntax, but most commands (especially Git commands) will be similar on Windows. This guide
 does not detail how to ensure the necessary tools are installed.
 
 Verify and configure Git using the following commands:
 ```bash
 # Check git installation
 $ git --version
-# You should see something like "git version 2.56.0.4"
+# You should see something like "git version 2.x.y"
 
 # Set your "commit" identity globally
 $ git config --global user.name "Your Name"
@@ -45,4 +45,4 @@ You are free to copy, distribute, translate, adapt, or build upon this material 
 commercially), provided you:
 - **Provide attribution** - to the original author (Aaron Craven) and link to the license.
 - **Indicate changes** - if you modified or built upon the material.
-- **Share alike** - release any derivative work under the same (CC BY-SA 4.0) license.
+- **ShareAlike** - release any derivative work under the same (CC BY-SA 4.0) license.
