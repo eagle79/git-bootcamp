@@ -1,6 +1,6 @@
 # Day-to-day git
 
-## The states ~~of~~ that matter
+## Understanding file states
 
 ## Checking repository status
 
