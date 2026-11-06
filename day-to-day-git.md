@@ -219,17 +219,17 @@ of the current branch, starting with the most recent commit and going all the wa
 
 From there, we'll start looking at various options:
 
-|Option|Description|
-|---|---|
-|`--oneline`|Display each commit in a compact, one-line format|
-|`--graph`|Display a text-base graph of commits (useful when examining branches and diverging commits)|
-|`--all`|View changes across all branches, not just the current one|
-|`-n <number>` or `-<number>`|View only the last `<number>` commits|
-|`--stat`|Include high-level file insertion/deletion statistics for each commit|
-|`--author="<author>"`|Filter commits to those written by a specific author|
-|`--grep="<searchtext>"`|Filter commits to those containing specific search text in the commit message|
-|`-S "<searchtext>"`|Filter commits to those that added or removed the exact search text within the content itself|
-|`-- <path>`|Filter commits to those containing a single file path|
+| Option                       | Description                                                                        |
+| ---------------------------- | ---------------------------------------------------------------------------------- |
+| `--oneline`                  | Display each commit in a compact, one-line format                                  |
+| `--graph`                    | Display a text-base graph of commits (useful when examining branches)              |
+| `--all`                      | View changes across all branches, not just the current one                         |
+| `-n <number>` or `-<number>` | View only the last `<number>` commits                                              |
+| `--stat`                     | Include high-level file insertion/deletion statistics for each commit              |
+| `--author="<author>"`        | Filter commits to those written by a specific author                               |
+| `--grep="<searchtext>"`      | Filter commits to those containing specific search text in the commit message      |
+| `-S "<searchtext>"`          | Filter commits to those that added or removed the exact search text within content |
+| `-- <path>`                  | Filter commits to those containing a single file path                              |
 
 Some common combinations:
 * `git log --oneline -n 20` - Quick history of recent commits

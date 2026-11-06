@@ -26,15 +26,15 @@ $ git config user.email "you@example.com"
 ```
 
 ## Contents
-||Section|Description|
-|---:|:---|:---|
-|1.|[Versioning through the ages](./history.md)|A _very_ brief history of version control.|
-|2.|[The Git mindset](./git-mindset.md)|How Git differs from previous version control systems.|
-|3.|[Getting started](./getting-started.md)|How to clone or create a repository to work with.|
-|4.|[Day-to-day Git](./day-to-day-git.md)|Making and committing changes.|
-|5.|[Branching out](./branching.md)|Parallel work with branches.|
-|6.|[Collaborating](./local-and-remote.md)|Sharing work - local vs. remote|
-|A1.|[Appendix: Terminology](./terminology.md)|Common terms|
+|      | Section                                     | Description                                            |
+| ---: | :------------------------------------------ | :----------------------------------------------------- |
+|   1. | [Versioning through the ages](./history.md) | A _very_ brief history of version control.             |
+|   2. | [The Git mindset](./git-mindset.md)         | How Git differs from previous version control systems. |
+|   3. | [Getting started](./getting-started.md)     | How to clone or create a repository to work with.      |
+|   4. | [Day-to-day Git](./day-to-day-git.md)       | Making and committing changes.                         |
+|   5. | [Branching out](./branching.md)             | Parallel work with branches.                           |
+|   6. | [Collaborating](./local-and-remote.md)      | Sharing work - local vs. remote                        |
+|  A1. | [Appendix: Terminology](./terminology.md)   | Common terms                                           |
 
 ---
 ## License
