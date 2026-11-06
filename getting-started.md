@@ -12,10 +12,12 @@ There are two ways you can get a local repository on your machine.
 ### Create a repository from scratch
 You can create a repository from scratch using the `git init` command:
 ```bash
+# You can initialize from inside the intended directory
 $ mkdir -p ~/repos/my-repo
 $ cd ~/repos/my-repo
 $ git init
-# or you can pass a directory to the command
+
+# or you can pass a directory path to the command
 $ git init ~/repos/my-repo
 $ cd ~/repos/my-repo
 ```
@@ -30,16 +32,24 @@ touching your files (assuming you don't already have a `.git` folder in the targ
 You can use the command `git clone` to clone an existing repository. The `git clone` command takes one required argument
 (a URL) and one optional argument (target directory, just as in `git init`). Git URLs can take one of several flavors:
 * HTTP - a standard HTTP or HTTPS URL (e.g. `https://github.com/eagle79/git-bootcamp.git`)
+  ```bash
+  $ git clone https://server.com/path/to/my-repo ~/repos/my-repo
+  ```
 * SSH - one of a number of standard SSH connection formats (e.g. `git@github.com:eagle79/git-bootcamp.git`)
+  ```bash
+  $ git clone user@server.com:path/to/my-repo.git ~/repos/my-repo
+  $ git clone ssh://user@server.com/path/to/my-repo.git ~/repos/my-repo
+  ```
 * Local (filesystem) - a local file path (e.g. `/path/to/repo.git`)
-In practice, this URL (along with authentication configuration) will typically be provided to you. To clone a fictitious
-repository like above, you might do the following:
-```bash
-$ git clone git@github.com:jsmith/my-repo.git ~/repos/my-repo
-$ cd ~/repos/my-repo
-```
+  ```bash
+  $ git clone ~/repos/my-repo ~/repos/my-repo-copy
+  ```
+> [!NOTE]
+> In practice, this URL (along with authentication configuration) will typically be provided to you. This guide does not
+> go into detail about how to set up authentication or how to get the necessary URL.
+
 This will:
-* Download a complete copy of the commit history and object database.
+* Download a complete copy of the commit history and object database (the `./.git` folder).
 * Set up a default remote pointer named `origin` (we will discuss this more in [Branching out](./branching.md)).
 * Check out the default branch (typically `main` or `master`) into your working directory.
 
