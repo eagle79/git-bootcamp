@@ -21,8 +21,8 @@ $ git config --global user.name "Your Name"
 $ git config --global user.email "you@example.com"
 
 # When in a repository, you can also use repository-specific values by omitting --global
-$ git config --global user.name "Your Name"
-$ git config --global user.email "you@example.com"
+$ git config user.name "Your Name"
+$ git config user.email "you@example.com"
 ```
 
 ## Contents
