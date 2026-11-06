@@ -186,6 +186,8 @@ This leaves the graph intact, and simply removes the branch pointer:
 > Switched to a new branch 'edits'
 > ```
 
-[^1]: Technically, it sets up an "unborn" initial branch that will be created on the first commit.
+[^1]: Technically, `git init` sets up an "unborn" initial branch that will be created on the first commit.
 ---
 [Home](./README.md) | [Previous: Day-to-day Git](./day-to-day-git.md) | [Next: Collaborating](./collaborating.md)
+
+Copyright © 2026 Aaron Craven.

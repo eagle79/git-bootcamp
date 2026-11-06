@@ -90,3 +90,5 @@ repository. A few highlights:
 [^2]: This is a simplification of Git internals. The reality is a more complicated, but unimportant for this document.
 ---
 [Home](./README.md) | [Previous: The Git mindset](./git-mindset.md) | [Next: Day-to-day Git](./day-to-day-git.md)
+
+Copyright © 2026 Aaron Craven.

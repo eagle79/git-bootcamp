@@ -288,3 +288,5 @@ sections.
     update information about the remote, we use `git fetch`, which is discussed in [Collaborating](collaborating.md).
 ---
 [Home](./README.md) | [Previous: Getting started](./getting-started.md) | [Next: Branching out](./branching.md)
+
+Copyright © 2026 Aaron Craven.

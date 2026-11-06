@@ -44,3 +44,5 @@ as a free alternative and rapidly became the de facto choice for source control.
 
 ---
 [Home](./README.md) | Previous | [Next: The Git mindset](./git-mindset.md)
+
+Copyright © 2026 Aaron Craven.

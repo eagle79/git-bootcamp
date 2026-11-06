@@ -75,3 +75,5 @@ with the remote, pulling down new changes and/or pushing up changes made locally
     etc.). In practice, this is all content a user needs for most purposes.
 ---
 [Home](./README.md) | [Previous: Versioning through the ages](./history.md) | [Next: Getting Started](./getting-started.md)
+
+Copyright © 2026 Aaron Craven.
