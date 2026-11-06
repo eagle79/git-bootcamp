@@ -275,5 +275,10 @@ Our repository looks like this now:
 
 ![Discarded working area change](./resources/day-to-day-git/ex5.png)
 
+## Take time to play!
+Before moving on, take some time to play with your test repository. Add changes, files, directories, and anything else 
+you might want to experiment with. Just don't remove any of the three test files, as they will be referenced in later
+sections.
+
 ---
 [Home](./README.md) | [Previous: Getting started](./getting-started.md) | [Next: Branching out](./branching.md)
