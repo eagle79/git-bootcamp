@@ -1,4 +1,79 @@
 # Getting started
+With the conceptual stuff out of the way, let's get our digital hands dirty. This section will focus on getting a 
+local repository created (or cloned), doing a little basic configuration, and examining the result.
+
+## Creating a local repository
+There are two ways you can get a local repository on your machine. 
+
+> [!NOTE]
+> This exercise assumes you store your repositories in a folder named `~/repos` (under Linux). In Windows, this might 
+> be `C:\Users\<your-id>\repos`. Wherever you plan to store them, replace the appropriate parts of the commands below.
+
+### Create a repository from scratch
+You can create a repository from scratch using the `git init` command:
+```bash
+$ mkdir -p ~/repos/my-repo
+$ cd ~/repos/my-repo
+$ git init
+# or you can pass a directory to the command
+$ git init ~/repos/my-repo
+$ cd ~/repos/my-repo
+```
+This will:
+* Initialize the repository's hidden `.git` folder
+* Create an initial (empty) default branch (typically `main` or `master`)
+
+When initializing a repository, the repository directory does not have to be empty. Git will initialize it without 
+touching your files (assuming you don't already have a `.git` folder in the target directory).
+
+### Clone an existing repository
+You can use the command `git clone` to clone an existing repository. The `git clone` command takes one required argument
+(a URL) and one optional argument (target directory, just as in `git init`). Git URLs can take one of several flavors:
+* HTTP - a standard HTTP or HTTPS URL (e.g. `https://github.com/eagle79/git-bootcamp.git`)
+* SSH - one of a number of standard SSH connection formats (e.g. `git@github.com:eagle79/git-bootcamp.git`)
+* Local (filesystem) - a local file path (e.g. `/path/to/repo.git`)
+In practice, this URL (along with authentication configuration) will typically be provided to you. To clone a fictitious
+repository like above, you might do the following:
+```bash
+$ git clone git@github.com:jsmith/my-repo.git ~/repos/my-repo
+$ cd ~/repos/my-repo
+```
+This will:
+* Download a complete copy of the commit history and object database.
+* Set up a default remote pointer named `origin` (we will discuss this more in [Branching out](./branching.md)).
+* Check out the default branch (typically `main` or `master`) into your working directory.
+
+## Repository & global configuration
+The most important thing to configure for Git and any repository is commit identity information. This was mentioned on
+the [home page](./README.md) of this guide, but we present it again here.
+
+To set identity information globally (recommended):
+```bash
+$ git config --global user.name "Your Name"
+$ git config --global user.email "you@example.com"
+```
+
+To override global configuration for the repository you are currently in:
+```bash
+$ git config user.name "Your Name"
+$ git config user.email "you@example.com"
+```
+
+There are a lot of configurations that this guide does not explore. To list available configuration information, you
+can execute:
+```bash
+$ git config --list
+```
+
+## Peeking under the hood
+For the morbidly curious, take a look at the files and directories in `~/repos/my-repo/.git`. These files _are_ your
+repository. A few highlights:
+* `HEAD` - a text file containing a pointer to your current working context (usually the branch you're working on).
+* `config` - configuration file (INI-style) containing repository-local settings.
+* `index` - a binary file representing the staging area (more on this later).
+* `objects/` - the content-addressable database; this contains every content blob, tree, commit, and tag object in the
+  repository
+* `refs/` - this is the reference store; it contains pointers to tracking branches, tags, and remotes
 
 ---
-[Home](./README.md) | [Previous:]() | [Next:]()
+[Home](./README.md) | [Previous: The Git mindset](./git-mindset.md) | [Next: Day-to-day Git](./day-to-day-git.md)
