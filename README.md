@@ -33,7 +33,7 @@ $ git config user.email "you@example.com"
 |   3. | [Getting started](./getting-started.md)     | How to clone or create a repository to work with.      |
 |   4. | [Day-to-day Git](./day-to-day-git.md)       | Making and committing changes.                         |
 |   5. | [Branching out](./branching.md)             | Parallel work with branches.                           |
-|   6. | [Collaborating](./local-and-remote.md)      | Sharing work - local vs. remote                        |
+|   6. | [Collaborating](./collaborating.md)         | Sharing work - local vs. remote                        |
 |  A1. | [Appendix: Terminology](./terminology.md)   | Common terms                                           |
 
 ---
