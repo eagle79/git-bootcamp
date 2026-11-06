@@ -45,4 +45,4 @@ You are free to copy, distribute, translate, adapt, or build upon this material 
 commercially), provided you:
 - **Provide attribution** - to the original author (Aaron Craven) and link to the license.
 - **Indicate changes** - if you modified or built upon the material.
-- **ShareAlike:** - release any derivative work under the same (CC BY-SA 4.0) license.
+- **Share alike** - release any derivative work under the same (CC BY-SA 4.0) license.
