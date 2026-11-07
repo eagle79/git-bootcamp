@@ -32,7 +32,7 @@ Git defines three primary states/areas for file changes to reside in:
 
 Our three areas now look like this:
 
-![Initial files](./resources/day-to-day-git/ex1.png)
+![Initial files](./resources/making-changes/ex1.png)
 
 ## Checking repository status
 If there's any Git command you'll learn with raw muscle memory, it's `git status`. This command provides information on
@@ -100,7 +100,7 @@ Changes to be committed:
 ```
 Our repository now looks like this:
 
-![Staged files](./resources/day-to-day-git/ex2.png)
+![Staged files](./resources/making-changes/ex2.png)
 
 ## Curveball
 Before we go any further, let's change things up a little. 
@@ -130,7 +130,7 @@ this modification as a new, unrelated change and leave it as-is.
 
 Now our repository looks like this:
 
-![Staged and unstaged files](./resources/day-to-day-git/ex3.png)
+![Staged and unstaged files](./resources/making-changes/ex3.png)
 
 ## What changed?
 Before we commit our change, what if we want to see more information than just list of the files we're about to make 
@@ -217,7 +217,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 Our staged changes are committed, leaving only the unstaged change in our working directory. Our repository now looks 
 like this:
 
-![First commit complete](./resources/day-to-day-git/ex4.png)
+![First commit complete](./resources/making-changes/ex4.png)
 
 The value in the History column is a hash prefix for our new commit (your value will be different).
 

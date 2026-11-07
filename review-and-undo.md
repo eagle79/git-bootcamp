@@ -1,6 +1,6 @@
 # Review & Undo
-We've made changes and moved them through the three working areas. Great! But how do we see those changes and how do 
-we undo mistakes?
+We've made changes and moved them through the three working areas. Great! But how do we see those changes and what do 
+we do if we don't like something we've done?
 
 ## Viewing the commit history
 To see changes in our commit history, we use `git log`. This command has an incredibly rich set of options (far too 
@@ -33,20 +33,23 @@ Give these a try in our repository. The results won't be particularly interestin
 you can come back to this list as we make more and more changes.
 
 ## Undoing local mistakes
-As developers, we're pretty good at getting everything right the first time. But on _very rare occasions_, we do make
-mistakes. So how do we deal with these? Well, that depends on where our changes are in the process. Here are a few
-common scenarios:
+As developers, we're pretty good at getting everything right the first time. 
+
+But on _very rare occasions_, we do make mistakes. 
+
+So how do we deal with these? Well, that depends on where our changes are in the process. Here are a few common 
+scenarios:
 
 ### Changes in the working directory we want to discard
 Use `git restore <file>` to return `<file>` to the version in the staging area (if present) or the version in the last 
 commit (if not). This overwrites your local file edits permanently. It will not modify untracked files.
 
-## Changes in the staging area that we want to unstage
+### Changes in the staging area that we want to unstage
 Use `git restore --staged <file>` to remove `<file>` from the staging area, but retain the change in the working 
 directory. (Note: if `<file>` is both in the staging area _and_ has working directory changes, this command will remove
 it from the staging area, but will not modify the working directory copy.)
 
-## Return the contents of a file to the state at a specific commit
+### Return the contents of a file to the state at a specific commit
 Use `git restore --source=<commit> <file>`, where `<commit>` is any reference to any other commit. This can be specified
 in multiple ways:
 * `git restore --source=abcd123 foo.txt` - specified by commit hash
@@ -64,7 +67,7 @@ nothing to commit, working tree clean
 
 Our repository looks like this now:
 
-![Discarded working area change](./resources/day-to-day-git/ex5.png)
+![Discarded working area change](./resources/review-and-undo/ex1.png)
 
 ## Take time to play!
 Before moving on, take some time to play with your test repository. Add changes, files, directories, and anything else 
