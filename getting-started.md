@@ -26,8 +26,8 @@ This will:
 * Initialize the repository's hidden `.git` folder
 * Create an initial (empty) default branch (typically `main` or `master`)
 
-For the purposes of this guide, let's do this now. Open a terminal, and create a local test repository named `my-repo`
-using `git init`.
+> [!IMPORTANT]
+> Let's do this now. Open a terminal, and create a local test repository named `my-repo` using `git init`.
 
 > [!NOTE]
 > When initializing a repository, the repository directory does not have to be empty. Git will initialize it without 
@@ -76,7 +76,8 @@ $ git config user.name "Your Name"
 $ git config user.email "you@example.com"
 ```
 
-Go ahead and set these values (either globally or locally in your `my-repo` repository).
+> [!IMPORTANT]
+> Go ahead and set these values (either globally or locally in your `my-repo` repository).
 
 There are a lot of configuration options that this guide does not explore. To list available configuration information,
 you can execute:
