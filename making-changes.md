@@ -1,4 +1,4 @@
-# Day-to-day git
+# Making changes
 Let's dig into day-to-day interaction with git. For now, we'll ignore branching and remotes and concentrate just on 
 making changes.
 
@@ -15,8 +15,8 @@ Git defines three primary states/areas for file changes to reside in:
 * **The index (staging area)** - Provides a "staging area" called the "index" for assembling a desired change to history
   (called a commit). Though technically the term "index" is more correct, most users call this the "staging area" or 
   just "staging". The staging area is a _tool_ for planning commits. As you modify files for a given commit, you can 
-  add/remove those modifications to/from the index (refered to as "staging"). Or if you are working on multiple 
-  (non-overlapping) modifications, you can stage all the files for one modification and commit that it only.
+  add/remove those modifications to/from the index (refered to as "staging" the changes). Or if you are working on
+  multiple (non-overlapping) modifications, you can stage all the files for one modification and commit that it only.
 * **History** - Official record of commits to the repository. Commits are _always_ created from the staging area, which
   acts as a representation the intended change. Once created, a commit cannot be modified[^1]. 
 
@@ -26,8 +26,11 @@ Git defines three primary states/areas for file changes to reside in:
 > other files are "untracked" in that the git repository is "unaware" of their presence 
 > (though git itself may reference them in commands like `git status`).
 
-Let's prepare an initial state for our test repository. In the root of the repository directory, create three files 
-(`foo.txt`, `bar.txt`, and `baz.txt`). Our three areas look like this:
+> [!IMPORTANT]
+> Let's prepare an initial state for our test repository. In the root of the repository directory, create three files 
+> (`foo.txt`, `bar.txt`, and `baz.txt`). 
+
+Our three areas now look like this:
 
 ![Initial files](./resources/day-to-day-git/ex1.png)
 
@@ -51,7 +54,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 ```
 `git status` tells us the following:
 * **Branch information** - What branch we're on and whether we're up-to-date with the information we have for the 
-  remote[^2]. We are on branch `main` (or `master`, depending on your settings) and we do not have a remote, so that 
+  remote[^2]. We are on branch `main` (or `master`, depending on your settings) and we do not have a remote, so remote 
   information is not present.
 * **Changes to be committed (staging area)** - Files that have been staged and are ready to be included in the next 
   commit. We haven't staged anything yet, so this section is absent.
@@ -60,8 +63,10 @@ nothing added to commit but untracked files present (use "git add" to track)
 
 ## Staging changes
 Let's get our files into the history. We start _planning_ our commit by adding our files to the staging area. There are
-many different ways we can do that, all using the command `git add`. Pick your poison and get the new files staged in 
-your test repository:
+many different ways we can do that, all using the command `git add`. 
+
+> [!IMPORTANT]
+> Pick a command and get the new files staged into `my-repo`
 ```bash
 # stage individual files one at a time
 $ git add foo.txt
@@ -74,17 +79,12 @@ $ git add foo.txt bar.txt baz.txt
 $ git add .
 
 # stage multiple files using normal wildcard/glob patterns
-$ git add *
+$ git add *.txt
 
 # stage all changes across the entire repository (use with care)
 $ git add -A
 # or 
 $ git add --all
-
-# stage changes to all tracked files (ignore any untracked files)
-$ git add -u
-# or 
-$ git add --update
 ```
 Run `git status` again and let's see what we have:
 ```bash
@@ -103,8 +103,10 @@ Our repository now looks like this:
 ![Staged files](./resources/day-to-day-git/ex2.png)
 
 ## Curveball
-Before we go any further, let's change things up a little. Open `foo.txt`, make
-a small change and save it. Then run `git status`.
+Before we go any further, let's change things up a little. 
+
+> [!IMPORTANT]
+> Open `foo.txt`, make a small change and save it. Then run `git status`.
 ```bash
 $ git status
 On branch main
@@ -131,9 +133,9 @@ Now our repository looks like this:
 ![Staged and unstaged files](./resources/day-to-day-git/ex3.png)
 
 ## What changed?
-Before we commit our change, what if we want to see more than the files we're about to make changes to? For this (and a
-lot of other scenarios), Git provides the `git diff` command. There are a lot of ways to use this command, but these 
-are the typical scenarios:
+Before we commit our change, what if we want to see more information than just list of the files we're about to make 
+changes to? For this (and a lot of other scenarios), Git provides the `git diff` command. There are a lot of ways to 
+use this command, but these are some typical scenarios:
 * `git diff` (no arguments) - changes in the working directory that haven't been staged
 * `git diff --staged` - changes that are staged, but not yet committed
 * `git diff HEAD` - all changes (staged and unstaged) as compared to the last commit
@@ -177,7 +179,8 @@ index 0000000..9daeafb
 (Note the `--` separator. This tells git diff that everything after this separator is a path, not a flag).
 
 ## Committing changes
-We've carefully planned our change, now let's make it official!
+> [!IMPORTANT]
+> We've carefully planned our change, now let's make it official and commit it!
 ```bash
 $ git commit -m "Initial commit"
 ```
@@ -185,11 +188,12 @@ Note we've used the `-m` flag to specify our "commit message". If we don't do th
 text editor to compose a commit message. Either option is fine, but please take time to compose a good commit message.
 
 > [!NOTE]
-> So what's a "good" commit message? Well, there's no "good" answer to that question. This author will make the 
+> What's a "good" commit message? Well, there's no "good" answer to that question. This author will make the 
 > following suggestions. The _real_ answer lies with your organization and fellow developers:
 > * If using an issue tracking system, start with the issue number. Try to keep the format consistent.
 > * Follow (on the same line) with a short, high-level, human-language description of what was changed. 
 > * If more detail is desired, separate with an empty line and then provide a more detailed description of the change.
+> 
 > Git tooling (e.g. GitHub) is often optimized for a 50/72 structure: 
 > ```
 > Capitalized, imperative summary line (50 chars or less)
@@ -215,13 +219,14 @@ like this:
 
 ![First commit complete](./resources/day-to-day-git/ex4.png)
 
+The value in the History column is a hash prefix for our new commit (your value will be different).
+
 ## Viewing the commit history
 Great! But how do we see the change in the repository history? For that, we use `git log`. This command has an 
 incredibly rich set of options (far too many to list here). The basic command (`git log`) lists the entire commit 
 history of the current branch, starting with the most recent commit and going all the way to the initial commit.
 
-From there, we'll start looking at various options:
-
+Other options include:
 | Option                       | Description                                                                        |
 | ---------------------------- | ---------------------------------------------------------------------------------- |
 | `--oneline`                  | Display each commit in a compact, one-line format                                  |
@@ -235,11 +240,11 @@ From there, we'll start looking at various options:
 | `-- <path>`                  | Filter commits to those containing a single file path                              |
 
 Some common combinations:
-* `git log --oneline -n 20` - Quick history of recent commits
+* `git log --oneline -n 20` - Quick history of recent commits (specifically, the last 20)
 * `git log --graph --oneline --all` - A text-based graphical view of the commit tree for the repository. Many 
   developers create an alias for this command as `git tree`
-* `git log --oneline -- foo.txt` - The history of `foo.txt` starting in the current branch (add `--all` to see it 
-  across the whole repository)
+* `git log --oneline -- foo.txt` - The commit history of `foo.txt` starting in the current branch (add `--all` to see 
+  it across the whole repository)
 
 Give these a try in our repository. The results won't be particularly interesting until we've made more changes, but
 you can come back to this list as we make more and more changes.
@@ -284,7 +289,7 @@ you might want to experiment with. Just don't remove any of the three test files
 sections.
 
 ---
-[Home](./README.md) | [Previous: Getting started](./getting-started.md) | [Next: Branching out](./branching.md)
+[Home](./README.md) | [Previous: Getting started](./getting-started.md) | [Next: Review & undo](review-and-undo.md)
 
 Copyright © 2026 Aaron Craven.
 

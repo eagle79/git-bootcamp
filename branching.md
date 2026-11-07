@@ -188,6 +188,6 @@ This leaves the graph intact, and simply removes the branch pointer:
 
 [^1]: Technically, `git init` sets up an "unborn" initial branch that will be created on the first commit.
 ---
-[Home](./README.md) | [Previous: Day-to-day Git](./day-to-day-git.md) | [Next: Collaborating](./collaborating.md)
+[Home](./README.md) | [Previous: Review & undo](./review-and-undo.md) | [Next: Collaborating](./collaborating.md)
 
 Copyright © 2026 Aaron Craven.

@@ -96,7 +96,7 @@ repository. A few highlights:
 * `refs/` - this directory is the reference store; it contains pointers to tracking branches, tags, and remotes.
 
 ---
-[Home](./README.md) | [Previous: The Git mindset](./git-mindset.md) | [Next: Day-to-day Git](./day-to-day-git.md)
+[Home](./README.md) | [Previous: The Git mindset](./git-mindset.md) | [Next: Making changes](./making-changes)
 
 Copyright © 2026 Aaron Craven.
 
