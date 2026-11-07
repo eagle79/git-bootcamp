@@ -26,26 +26,26 @@ For example:
 * Commit `c8a441e` updates `file2.txt` and deletes `file3.txt`
 
 ## Content-addressable storage
-Instead of storing files directly, Git stores immutable "objects" keyed by the SHA-1[^1] hash of its contents (and other
+Instead of storing files directly, Git stores immutable "objects" keyed by the SHA-1 hash[^1] of its contents (and other
 metadata). These objects can be one of four core object types:
-* blob - File Content
-* tree - Directory
-* commit - A "snapshot" (technically a reference to the root tree object of the repository) combined with various
+* **blob** - File Content
+* **tree** - Directory
+* **commit** - A "snapshot" (technically a reference to the root tree object of the repository) combined with various
   metadata
-* tag - A reference to another object (usually a commit) along with additional metadata
+* **tag** - A reference to another object (usually a commit) along with additional metadata
 
 If this feels a bit deep in the weeds, it's because it is! The key takeaway is that a Git repository is essentially a
 local database with "records" keyed by a hash of their contents (and other metadata). When we talk about commits, we're
 really just talking about an object that represents a particular snapshot of the repository's contents. 
 
 > [!NOTE]
-> In most examples in this text, you'll see a commit hash shown as an abbreviated "prefix", which is common practice 
-> when using Git. All Git commands will accept any hash prefix so long as it unambiguously references a single commit.
-> Seven characters is a common standard that works for most scenarios.
+> In most examples in this text, you'll see a commit hash shown as an abbreviated "prefix" (e.g. `4a66ef9`), which is
+> common practice when using Git. All Git commands will accept _any_ hash prefix so long as it unambiguously references
+> a single commit. Seven characters is a common standard that works for most scenarios.
 
 ## The DAG (commit graph)
-DAG stands for Directed Acyclic Graph, which is a fancy name for a relatively straightforward concept. Let's break it
-down into its components:
+The DAG is a way of representing change history by linking commit objects together. DAG stands for Directed Acyclic 
+Graph, which is a fancy name for a relatively simple concept. Let's break it down into its components:
 * Graph - a collection of connected nodes (commits)
 * Directed - connections go in one direction; specifically, **a commit always points _backward_ to its parent 
   commit(s)**
@@ -61,19 +61,21 @@ For example, a DAG might look something like this:
 
 ## Local-first
 A key concept in Git is that it is decentralized. In fact, when you clone a repository, you get a copy of every
-revision, branch, merge, and tag in the repository you cloned[^2]. In theory, this would allow _any_ repository clone to
-become the source of truth for any other clone. In practice, most teams designate a server-located copy (the "remote") 
-to be the "source of truth" for the repository. 
+revision, branch, merge, and tag in the repository you cloned[^2]. 
+
+In theory, this would allow _any_ repository clone to become the source of truth for any other clone. In practice, most
+teams designate a server-located copy (the "remote") to act as the "source of truth" for the repository. 
 
 Nearly all git commands are written with this local-first mentality. They operate directly on the local copy without
 consulting the remote. When appropriate for the user's workflow, special commands are used to synchronize local state 
 with the remote, pulling down new changes and/or pushing up changes made locally.
 
-[^1]: While SHA-1 is the current default, SHA-256 repositories are also fully supported and expected to become the
-    future default for new repositories.
-[^2]: Technically a normal clone fetches all history reachable from the remote's advertised refs (active branches, tags,
-    etc.). In practice, this is all content a user needs for most purposes.
 ---
 [Home](./README.md) | [Previous: Versioning through the ages](./history.md) | [Next: Getting Started](./getting-started.md)
 
 Copyright © 2026 Aaron Craven.
+
+[^1]: While SHA-1 is the current default, SHA-256 repositories are also fully supported and expected to become the
+    future default for new repositories.
+[^2]: Technically a normal clone fetches all _reachable_ history from the remote's advertised refs (active branches, 
+    tags, etc.). In practice, this is all the content a user will ever need for most purposes.
