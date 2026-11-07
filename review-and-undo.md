@@ -33,9 +33,8 @@ Give these a try in our repository. The results won't be particularly interestin
 you can come back to this list as we make more and more changes.
 
 ## Undoing local mistakes
-As developers, we're pretty good at getting everything right the first time. 
-
-But on _very rare occasions_, we do make mistakes. 
+As developers, we're pretty good at getting everything right the first time... right? But on _**very rare occasions**_,
+we do make mistakes...
 
 So how do we deal with these? Well, that depends on where our changes are in the process. Here are a few common 
 scenarios:
@@ -57,7 +56,8 @@ in multiple ways:
   current branch)
 * `git restore --source=branch-or-tag-name foo.txt` - specified as a tag name or the tip of any branch
 
-Let's try this out. We currently have a file in the working area that we modified. Let's discard those changes:
+> [!IMPORTANT]
+> Let's try this out. We currently have a file in the working area that we modified. Discard those changes:
 ```bash
 $ git restore foo.txt
 $ git status
@@ -71,7 +71,7 @@ Our repository looks like this now:
 
 ## Take time to play!
 Before moving on, take some time to play with your test repository. Add changes, files, directories, and anything else 
-you might want to experiment with. Just don't remove any of the three test files, as they will be referenced in later
+you might want to experiment with. Just don't remove any of the three test files, as they may be referenced in later
 sections.
 
 ---
