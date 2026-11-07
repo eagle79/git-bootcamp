@@ -2,22 +2,23 @@
 Let's dig into day-to-day interaction with git. For now, we'll ignore branching and remotes and concentrate just on 
 making changes.
 
-If you haven't already, create a local repository (`~/repos/my-repo` below) using `git init` as discussed in the 
-[Getting started](./getting-started.md) section.
+> [!IMPORTANT]
+> If you haven't already, create a local repository (`~/repos/my-repo` below) using `git init` as discussed in the 
+> [Getting started](./getting-started.md) section.
 
 ## Understanding file states
-Git defines three primary states/areas for file changes to reside:
-* **Working directory** - These are the files you directly interact with. After checking out (or creating a repository),
+Git defines three primary states/areas for file changes to reside in:
+* **Working directory** - These are the files you directly interact with. After checking out (or creating) a repository,
   these files will be located in the repository folder (all other states are stored inside the hidden `.git/` folder).
   You work with these files in the normal manner (text editor, IDE, etc.): creating, modifying, renaming, and deleting
-  as necessary. Changing a file or directory here will cause it to move into the "modified" state.
-* **The index (staging area)** - Provides a "staging area" called the "index" for assembling a desired change (though
-  technically the term "index" is more correct, most users call this the "staging area" or just "staging"). The staging
-  area is a planning tool for commits. As you modify files for a given change, you can add/remove those modifications 
-  to/from the index (this is called "staging" the changes/files). Or if you are working on multiple (non-overlapping)
-  changes, you can stage all the files for one change and commit that change only.
-* **The commit** - Official record of a change. Once created, a commit cannot be modified[^1]. A commit is _always_ 
-  created from the staging area, which represents the intended change.
+  as necessary. If you change a file or directory here, Git will recognize that it has been modified.
+* **The index (staging area)** - Provides a "staging area" called the "index" for assembling a desired change to history
+  (called a commit). Though technically the term "index" is more correct, most users call this the "staging area" or 
+  just "staging". The staging area is a _tool_ for planning commits. As you modify files for a given commit, you can 
+  add/remove those modifications to/from the index (refered to as "staging"). Or if you are working on multiple 
+  (non-overlapping) modifications, you can stage all the files for one modification and commit that it only.
+* **History** - Official record of commits to the repository. Commits are _always_ created from the staging area, which
+  acts as a representation the intended change. Once created, a commit cannot be modified[^1]. 
 
 > [!NOTE]
 > It's useful to be aware of the difference between "tracked" and "untracked" files. A "tracked" file is one that has
@@ -282,11 +283,12 @@ Before moving on, take some time to play with your test repository. Add changes,
 you might want to experiment with. Just don't remove any of the three test files, as they will be referenced in later
 sections.
 
-[^1]: While this is technically true, there are ways to "rewrite history". These techniques do not modify existing 
-    commits, but rather remove them from the graph and re-create new (modified) commits in their place.
-[^2]: `git status` does not retrieve information from the remote, but works on the currently known information. To 
-    update information about the remote, we use `git fetch`, which is discussed in [Collaborating](collaborating.md).
 ---
 [Home](./README.md) | [Previous: Getting started](./getting-started.md) | [Next: Branching out](./branching.md)
 
 Copyright © 2026 Aaron Craven.
+
+[^1]: While this is technically true, there are ways to "rewrite history". These techniques do not modify existing 
+    commits, but rather remove them from the graph and re-create new (modified) commits in their place.
+[^2]: `git status` does not retrieve information from the remote, but works on the currently known information. To 
+    update information about the remote, we use `git fetch`, which is discussed in [Collaborating](collaborating.md).
