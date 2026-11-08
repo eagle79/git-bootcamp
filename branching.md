@@ -62,13 +62,13 @@ Rather than detail these commands here, we're just going to get to using them ri
 
 > [!IMPORTANT]
 > Create and switch to a branch named `edits`:
-```bash
-# The -c flag instructs Git to create the branch we're switching to
-$ git switch -c edits
-$ git status
-On branch edits
-nothing to commit, working tree clean
-```
+> ```bash
+> # The -c flag instructs Git to create the branch we're switching to
+> $ git switch -c edits
+> $ git status
+> On branch edits
+> nothing to commit, working tree clean
+> ```
 Now we have a new branch pointer on our graph. Note that the `HEAD` pointer still points to the same commit. However, 
 Git has updated the `HEAD` pointer to follow `edits` instead of `main` (this is not indicated in the image):
 
