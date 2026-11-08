@@ -32,7 +32,7 @@ Let's assume after testing the previous sections, your repository currently has 
 commit points to its parent, which is why the arrows point "backwards"). Here we've included commit comments to help
 you get oriented, but we'll remove them below to allow space for other elements.
 
-We also introduce an additional concept before delving into branches: `HEAD`. `HEAD` is a pointer that represents your 
+We also introduce an additional concept (`HEAD`) before delving into branches. `HEAD` is a pointer that represents your 
 current working environment. Commands like `git commit`, `git checkout`, and `git switch` all automatically move this 
 pointer. So far, we've used `git commit`, which creates a new commit object from the contents of the staging area. Along
 with creating that object, `git commit` also changes `HEAD` to point to the new commit. So for our repository, `HEAD` 
@@ -41,7 +41,7 @@ currently points to commit `9409929`:
 ![Initial repository state](./resources/branching/ex1.png)
 
 When we created our repository (using `git init`), Git automatically created our first branch[^1], called `main`. This
-is also just another pointer, and is also automatically moved with each commit (to the branch) as well. Here is our
+is also just another pointer, and is also automatically moved with each commit (to the `main` branch). Here is our
 graph with both `HEAD` and `main` annotated:
 
 ![Annotated repository state](./resources/branching/ex2.png)
@@ -63,7 +63,7 @@ Rather than detail these commands here, we're just going to get to using them ri
 > [!IMPORTANT]
 > Create and switch to a branch named `edits`:
 ```bash
-# Create and switch to edits
+# The -c flag instructs Git to create the branch we're switching to
 $ git switch -c edits
 $ git status
 On branch edits
@@ -85,19 +85,19 @@ The graph now looks like this:
 
 ![Change added to edits branch](./resources/branching/ex4.png)
 
-Note that we aren't drawing this "to the side" of the `main` branch. In line with the mentality that a branch is simply
-a pointer, Git graphs are usually drawn according to the relationships between commits, rather than the relationships 
-between branches. At the moment, there is actually no divergence between `main` and `edits` other than what commits the
-branches point to. 
+Note that even though our commit was made on `edits`, we aren't drawing this "to the side" of the `main` branch. In 
+line with the mentality that a branch is simply a pointer, Git graphs are usually drawn according to the relationships
+between commits, rather than the relationships between branches. At the moment, there is actually no divergence between
+`main` and `edits` other than what commits the two branches point to. 
 
 ## Trivial merges
-Let's get those changes into `main`.
+Let's get this change into `main`.
 
 There are actually _many_ ways to merge changes in git, but the primary techniques are:
 * **Three-way merge** - Creates a merge that ties two parent commits together. A new commit is created applying the 
   changes from the merged branch (we'll look at one of these later). 
 * **Fast-forward merge** - When the branches being merged do not have divergent histories, we can just move the branch
-  pointer forward.
+  pointer for the target branch (the branch being merged _into_) forward.
 
 > [!NOTE]
 > Three way merges are _required_ when merging divergent histories and _optional_ any time a fast-forward merge is
@@ -107,15 +107,15 @@ There are actually _many_ ways to merge changes in git, but the primary techniqu
 > [!IMPORTANT]
 > Merge our changes in `edits` to `master` by first switching to `main`, and then issuing a `git merge` command against
 > the `edits` branch. (By default, `git merge` always merges _into_ the currently selected branch.)
-```bash
-$ git switch main
-Switched to branch 'main'
-$ git merge edits
-Updating 9409929..f2a81e5
-Fast-forward
- foo.txt | 1 +
- 1 file changed, 1 insertion(+)
-```
+> ```bash
+> $ git switch main
+> Switched to branch 'main'
+> $ git merge edits
+> Updating 9409929..f2a81e5
+> Fast-forward
+>  foo.txt | 1 +
+>  1 file changed, 1 insertion(+)
+> ```
 Git recognizes there is no divergent history and performs a fast-forward merge by simply moving the `main` pointer 
 forward to the same commit as `edits`:
 
@@ -133,24 +133,24 @@ Let's do something a little more complex.
 > * Switch back to the `edits` branch (`git switch edits`).
 > * Modify `bar.txt` to change the first line. Save, stage, and commit.
 > * Switch back to the `main` branch
-> * Modify the same line (but with different text) in `bar.txt`. Save, stage, and commit.
+> * Modify _the same line_ (but with different text) in `bar.txt`. Save, stage, and commit.
 
-We now have two divergent changes which will conflict with one another. Our graph looks like this (we've removed some 
-older nodes to keep the graph from outgrowing your screen):
+We now have two divergent changes. Our graph looks like this (we've removed some  older nodes to keep the graph from
+outgrowing your screen):
 
 ![Diverging histories](./resources/branching/ex6.png)
 
-If we didn't have conflicts, issuing `git merge edits` from `main` would result in Git pulling both changes into a new
-commit called a "merge commit". But we have conflicts... so what happens now? Let's find out! 
+Normally, issuing `git merge edits` from `main` should result in Git pulling both changes into a new commit called a 
+"merge commit". But we're going to have a little plot twist!
 
 > [!IMPORTANT]
 > We're already on `main`, so try to merge `edits`.
-```bash
-$ git merge edits
-Auto-merging bar.txt
-CONFLICT (content): Merge conflict in bar.txt
-Automatic merge failed; fix conflicts and then commit the result.
-```
+> ```bash
+> $ git merge edits
+> Auto-merging bar.txt
+> CONFLICT (content): Merge conflict in bar.txt
+> Automatic merge failed; fix conflicts and then commit the result.
+> ```
 Git recognized it cannot automatically combine our changes, so instead it pauses the merge process and marks a conflict.
 This is done with special text markers inside the conflicting file (`bar.txt`):
 ```diff
@@ -173,20 +173,20 @@ There are a few key things to note:
 * Commit `9fed0d5` has two parents, which tells us this is a merge commit. There are even ways to do merges with more 
   than two parents (called "octopus merges"), though these are rare.
 * We merged `edits` to `main`. However `edits` itself has not changed. If we wish to continue working in `edits` and
-  incorporate the results of the merge, we must go to the `edits` branch and merge `main` into it. Because of the merge
-  commit, this will be a fast-forward merge. 
+  incorporate the results of the merge, we must go to the `edits` branch and merge `main` back into it. Because of the
+  merge commit, this will be a fast-forward merge. 
   
 > [!IMPORTANT]
 > Use `git merge` to update `edits` so that it is up-to-date with `main`.
-  ```bash
-  $ git switch edits
-  Switched to branch 'edits'
-  $ git merge main
-  Updating 233f600..9fed0d5
-  Fast-forward
-   bar.txt | 2 +-
-   1 file changed, 1 insertion(+), 1 deletion(-)
-  ```
+> ```bash
+> $ git switch edits
+> Switched to branch 'edits'
+> $ git merge main
+> Updating 233f600..9fed0d5
+> Fast-forward
+>  bar.txt | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> ```
 
 ![Updated edits branch](./resources/branching/ex8.png)
 
@@ -194,12 +194,15 @@ There are a few key things to note:
 Since branches are just pointers, it's often convenient to get rid of them. Don't worry... no history is lost! We just
 don't always need to carry around the branch name (especially for local branches). To delete a branch, first switch to
 another branch (you can't delete the branch you're on), then use `git branch -d <branchname>` to remove it.
-```bash
-$ git switch main
-Switched to branch 'main'
-$ git branch -d edits
-Deleted branch edits (was 9fed0d5).
-```
+
+> [!IMPORTANT]
+> Delete the `edits` branch:
+> ```bash
+> $ git switch main
+> Switched to branch 'main'
+> $ git branch -d edits
+> Deleted branch edits (was 9fed0d5).
+> ```
 
 This leaves the graph intact, and simply removes the branch pointer:
 

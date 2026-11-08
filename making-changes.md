@@ -67,37 +67,37 @@ many different ways we can do that, all using the command `git add`.
 
 > [!IMPORTANT]
 > Pick a command and get the new files staged into `my-repo`
-```bash
-# stage individual files one at a time
-$ git add foo.txt
-$ git add bar.txt
-$ git add baz.txt
-# or
-$ git add foo.txt bar.txt baz.txt
-
-# stage all changes in a specific directory (and subdirectories) (in this case, all files in the current directory)
-$ git add .
-
-# stage multiple files using normal wildcard/glob patterns
-$ git add *.txt
-
-# stage all changes across the entire repository (use with care)
-$ git add -A
-# or 
-$ git add --all
-```
-Run `git status` again and let's see what we have:
-```bash
-On branch main
-
-No commits yet
-
-Changes to be committed:
-  (use "git rm --cached <file>..." to unstage)
-        new file:   bar.txt
-        new file:   baz.txt
-        new file:   foo.txt
-```
+> ```bash
+> # stage individual files one at a time
+> $ git add foo.txt
+> $ git add bar.txt
+> $ git add baz.txt
+> # or
+> $ git add foo.txt bar.txt baz.txt
+> 
+> # stage all changes in a specific directory (and subdirectories) (in this case, all files in the current directory)
+> $ git add .
+> 
+> # stage multiple files using normal wildcard/glob patterns
+> $ git add *.txt
+> 
+> # stage all changes across the entire repository (use with care)
+> $ git add -A
+> # or 
+> $ git add --all
+> ```
+> Run `git status` again and let's see what we have:
+> ```bash
+> On branch main
+> 
+> No commits yet
+> 
+> Changes to be committed:
+>   (use "git rm --cached <file>..." to unstage)
+>         new file:   bar.txt
+>         new file:   baz.txt
+>         new file:   foo.txt
+> ```
 Our repository now looks like this:
 
 ![Staged files](./resources/making-changes/ex2.png)
@@ -107,23 +107,23 @@ Before we go any further, let's change things up a little.
 
 > [!IMPORTANT]
 > Open `foo.txt`, make a small change and save it. Then run `git status`.
-```bash
-$ git status
-On branch main
-
-No commits yet
-
-Changes to be committed:
-  (use "git rm --cached <file>..." to unstage)
-        new file:   bar.txt
-        new file:   baz.txt
-        new file:   foo.txt
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git restore <file>..." to discard changes in working directory)
-        modified:   foo.txt
-```
+> ```bash
+> $ git status
+> On branch main
+> 
+> No commits yet
+> 
+> Changes to be committed:
+>   (use "git rm --cached <file>..." to unstage)
+>         new file:   bar.txt
+>         new file:   baz.txt
+>         new file:   foo.txt
+> 
+> Changes not staged for commit:
+>   (use "git add <file>..." to update what will be committed)
+>   (use "git restore <file>..." to discard changes in working directory)
+>         modified:   foo.txt
+> ```
 Git has our original file contents staged, and is noting there is an unstaged change to `foo.txt`. Typically this would
 be a last-minute adjustment and we'd simply do an additional `git add` on the file. But in this case, we'll think of
 this modification as a new, unrelated change and leave it as-is.
@@ -181,9 +181,9 @@ index 0000000..9daeafb
 ## Committing changes
 > [!IMPORTANT]
 > We've carefully planned our change, now let's make it official and commit it!
-```bash
-$ git commit -m "Initial commit"
-```
+> ```bash
+> $ git commit -m "Initial commit"
+> ```
 Note we've used the `-m` flag to specify our "commit message". If we don't do this, Git will automatically open a
 text editor to compose a commit message. Either option is fine, but please take time to compose a good commit message.
 
