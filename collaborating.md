@@ -111,6 +111,7 @@ the remote.
 > ```bash
 > $ git switch -c newbranch
 > Switched to a new branch 'newbranch'
+>
 > $ git push origin newbranch
 > Total 0 (delta 0), reused 0 (delta 0), pack-reused 0 (from 0)
 > remote:
@@ -133,14 +134,13 @@ the remote.
 > ```
 
 ### Switching to a branch on the remote
-Other users will be creating branches as well, and we will need to be able to interact with them. We'll need to know 
-the name of the remote branch, so we can use `git branch -r` (lists remote branch names) to see them. Once you know the
-name, `git switch <branchname>` works in the same manner. If Git doesn't find the branch locally, it automatically looks
-for it in the remote branches, then sets up a new local branch that tracks the remote branch.
+Other users will be creating branches as well, and we may need to be able to interact with them. For that, we need to
+somehow find out the name of a remote branch. We can use `git branch -r` (lists remote branch names) to see them all 
+remote branch names (if you don't see the expected branch, you might need to run `git fetch`). Once you know the name, 
+`git switch <branchname>` works in the same manner. If Git doesn't find  the branch locally, it automatically looks for
+it in the remote branches, then sets up a new local branch that tracks the remote branch.
 
 > [!NOTE]
-> You'll usually want to run `git fetch` before these operations. We'll discuss why in more detail below.
-> 
 > If you have a local branch already with the same name as a remote branch, things can get messy very quickly. Branch
 > naming standards go a long way to avoiding this. One very simple way to ensure it never happens is to use a "prefix"
 > in local-only branch names. For example `private/<branch-name>` or `local/<branch-name>`. Such branches should
@@ -172,7 +172,8 @@ webpage.
 > Modify any of those files now (GitHub will actually update, stage, and commit your change directly in the remote
 > repository).
 > 
-> Now on your local, look at the current status and commit log:
+> Now on your local, look at the current status and commit log (our log is getting a little long, so I've removed a 
+> number of lines in the output for brevity.):
 > ```bash
 > $ git status
 > On branch main
@@ -210,6 +211,14 @@ Our repository is blissfully unaware that we've modified a file on the remote.
 > ```
 
 ### Incoming changes
+> [!IMPORTANT]
+> Without going into detail, execute the following command to ensure your default settings for this repository match
+> the expected behavior. If you don't set this, you may get an error asking you to "specify how to reconcile" divergent
+> branches.
+> ```bash
+> $ git config pull.rebase false
+> ```
+
 Now our local knows that the remote has commits we don't have (`Your branch is behind 'origin/main' by 1 commit`). It 
 also knows that we can easily bring these commits in easily (`and can be fast-forwarded.`). How do we bring the changes
 in? The same way as with a local branch: we merge!
@@ -226,8 +235,7 @@ in? The same way as with a local branch: we merge!
 Wait. But I said "merge" not "pull". What gives? 
 
 `git pull` is shorthand for issuing `git fetch` followed by `git merge <upstream-name>` and is the standard command when
-retrieving changes on a remote into a local branch. Now our history should show  the commit from GitHub. (Our log is
-getting a little long, so I've removed a number of lines in the output for brevity.)
+retrieving changes on a remote into a local branch. Now our history should show  the commit from GitHub.
 ```bash
 $ git log --oneline
 f3c26af (HEAD -> main, origin/main, origin/HEAD) Add a new line to baz.txt
@@ -252,13 +260,15 @@ Your branch is ahead of 'origin/main' by 1 commit.
 nothing to commit, working tree clean
 ```
 
-Git now knows we have a local change that is not represented on the remote. If we want to be _really_ careful, we should
-probably do a `git fetch` here to be sure, but since we own this repository, we can be reckless. 
+Git now knows we have a local change that is not represented on the remote. 
 
 > [!IMPORTANT]
 > Move your local change to the remote using the `git push` command. If you had multiple commits in your local that
 > weren't in the remote, `git push` would move them all:
 > ```bash
+> $ #Do a fetch just to be sure there's nothing unexpected
+> $ git fetch
+>
 > $ git push
 > Enumerating objects: 5, done.
 > Counting objects: 100% (5/5), done.
@@ -279,26 +289,31 @@ probably do a `git fetch` here to be sure, but since we own this repository, we 
 > [!NOTE]
 > We were able to push to the remote without any arguments in the command because Git set the "upstream" (or tracking)
 > branch for our local `main` branch when we cloned the repository. Without that, we would need to use 
-> `git push origin main`. There are a variety of ways to set an upstream for a branch: 
+> `git push origin main`. There are a variety of ways to set an upstream for a branch if it's not already set: 
 > * During a pull or push operation, include the `--set-upstream` flag
 > * On an existing branch, issue the command `git branch -u origin/<branch-name>`
-> * Never have to deal with it again: `git config --global push.autoSetupRemote true`. Git will automatically 
+> * Never have to deal with it again: `git config --global push.autoSetupRemote true`. Git will automatically set the
+>   upstream for every branch on the first "push" operation (including the first "push" of a local branch to create its
+>   remote).
 
-A "push" operation is also like a merge, but unlike `git pull` is not just the composition of two commands. `git push`
-is a single, unified operation that performs the following steps as an atomic operation:
+`git push` is a single, unified operation that performs the following steps as an _atomic_ operation:
 * Upload all commits (and associated objects) on the current branch that do not yet exist on the remote.
-* Update references on the remote (notable the branch pointer) to point to the latest commit.
+* Update references on the remote (notably the branch pointer) to point to the latest commit.
 
-You cannot push a change to the remote that would overwrite someone else's work unintentionally (your local branch is 
-"behind" the remote branch), Git will _reject_ the push outright. You _must_ update your local with the changes on the
-remote first and reconcile any conflicts, then you can push the results of that reconciliation to the remote. We'll look
-at that next.
+> [!NOTE]
+> Unlike `git pull` (which is fundamentally a merge operation), `git push` does not perform complex merges on the 
+> remote. It will only add commits and move branch pointers. 
+> 
+> This is intentional: You can never push a change to the remote that would overwrite someone else's work 
+> _unintentionally_ (because your local branch is "behind" the remote branch)[^1]. Git will _reject_ such a push outright. 
+> You _must_ update your local with the changes on the remote first and reconcile any conflicts. Only then can you push
+> the results of that reconciliation to the remote. We'll look at that next.
 
 ## Handling divergent remote history
 Since we're working in a disconnected environment, divergent changes are guaranteed to happen eventually. The remote is
 quite literally another branch that someone else might be commiting to (it just happens to reside on a different 
-machine). So the strategies for handling those changes are the same as diverging histories on the local (aside from the
-need to call `git fetch` from time to time and the new commands `git pull` and `git push`). 
+machine). So the strategies for handling those changes are very similar to those for handling diverging histories on the
+local. 
 
 In short, once aware of incoming changes (`git fetch` / `git status`), we merge the incoming changes locally 
 (`git pull` and (if not a fast-forward merge) `git commit`) and then push the resulting (merged and reconciled) changes
@@ -331,17 +346,12 @@ Well, _that_ didn't work.
 Git recognized that the remote has changes we haven't seen and stops us from proceeding. It then recommends a 
 `git pull`. Remember: that's a `git fetch` followed by a `git merge`. And _that's_ the secret sauce...
 
-> [!NOTE]
-> We have attempted a push, but it was rejected. `git push` is atomic, so nothing changed on the remote. It still is
-> not updated with our local changes. And our local is unaffected as well. It is still in the same state, and fully 
-> aware that it is _behind_ the remote branch.
-
 ### The better way (or how to avoid conflicts with the remote)
-The last thing an developer wants to deal with when ready to release the change they've worked so hard on is a conflict.
-But conflicts _will_ occur. The best way to handle them is to proactively watch for them and guard against them when 
-synchronizing our changes to the remote. To do this, we can regularly pull in changes from the remote, dealing with 
-incoming changes as they occur and when it's convenient for us. To do this, we start by regularly running `git fetch`
-and `git status`.
+The last thing a developer wants to deal with when ready to release the change they've worked so hard on is a conflict.
+But conflicts _will_ occur. The best way to handle them is to proactively watch for them and incorporate them before
+synchronizing our changes to the remote. To do this, we can regularly pull in changes from the remote when it's 
+convenient for us. To do this, we start by regularly running `git fetch` and `git status`. These commands just make sure
+we're aware of changes without forcing us to immediately deal with them.
 
 If we fall behind the remote, `git status` will tell us:
 ```bash
@@ -388,9 +398,7 @@ index a30a5a5..92b0281 100644
 ```
 
 > [!IMPORTANT] 
-> Let's bite the bullet. 
-> 
-> Try to pull in the changes from the remote:
+> Let's bite the bullet and pull in the changes from the remote:
 > ```bash
 > $ git pull
 > Auto-merging bar.txt
@@ -407,10 +415,11 @@ Again we do this locally.
 > [!IMPORTANT] 
 > Resolve the conflict by editing the file, then stage and commit it. 
 
-Remember, we just merged the changes on the _remote_ branch into our local. The commit completed that process by 
-creating a local merge commit. But we still need to get the changes of the mrege into the remote. 
+With the commit, we've merged the changes on the _remote_ branch into our local. But we still need to get the changes
+of the mrege into the remote. 
 
-> [!IMPORTANT] Check our status and push to the remote:
+> [!IMPORTANT] 
+> Check status and push to the remote:
 > ```bash
 > $ git status
 > On branch main
@@ -435,10 +444,12 @@ creating a local merge commit. But we still need to get the changes of the mrege
 > to check out _both_ branches to local copies, perform merges locally, then push the merged changes back up to the 
 > remote.
 
-### Beyond vanilla Git: pull requests
-TODO
-
 ---
 [Home](./README.md) | [Previous: Branching out](./branching.md) | Next
 
 Copyright © 2026 Aaron Craven.
+
+[^1]: While true, `git push` can be used with the `--force` flag to tell Git to update the state of the remote to the 
+    exact state of the local repository no matter what. A slightly safer option (`--force-with-lease`) does the same 
+    thing but automatically aborts if the actual state of the remote has changed since the last fetch. Both approaches 
+    are dangerous and are used operations this guide does not cover (rebasing, squash commits, ammending commits, etc.)
