@@ -39,7 +39,7 @@ $ git config user.email "you@example.com"
 |   5. | [Review & undo](./review-and-undo.md)       | Reviewing commit history and undoing changes.          |
 |   6. | [Branching out](./branching.md)             | Parallel work with branches.                           |
 |   7. | [Collaborating](./collaborating.md)         | Sharing work: local vs. remote.                        |
-|  A1. | [Appendix: Terminology](./terminology.md)   | Common terms.                                          |
+|   8. | [Git Tools](./tools.md)                     | A brief look at tools available for Git.               |
 
 ---
 ## License

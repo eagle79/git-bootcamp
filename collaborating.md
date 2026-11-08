@@ -443,7 +443,7 @@ of the merge into the remote.
 > remote.
 
 ---
-[Home](./README.md) | [Previous: Branching out](./branching.md) | Next
+[Home](./README.md) | [Previous: Branching out](./branching.md) | [Next: Git tools](./tools.md)
 
 Copyright © 2026 Aaron Craven.
 
