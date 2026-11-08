@@ -1,24 +1,25 @@
 # Branching out
-Writing software in a team setting is messy. Each developer has their own priorities and tasks, and inevitably, we need
-to modify the same resources at the same time. Git was baptized with fire in its early days by acting as the system of
-choice for Linux kernel development. The primary tool in its arsenal for dealing with this problem is the branch.
+Writing software in a team setting is messy. Each developer has their own tasks and priorities, and inevitably, we need
+to modify the same resources at the same time. Git was baptized with fire in its early days by acting as the version 
+control for development of the Linux kernel, so it has more than proven its ability to deal with this issue. The 
+primary tool in its arsenal for dealing with concurrent development is the branch.
 
-Even at its inception, branching was not a new concept. In fact, the earliest system to introduce branching was SCCS, 
+Even at Git's inception, branching was not a new concept. In fact, the first system to introduce branching was SCCS, 
 one of the earliest of all version control systems! Git revolutionized branching by making it more accessible. Git
 branches are:
-* **Extremely lightweight** - Where other systems implement branches as copies, a branch in Git is just a moving 
-  pointer to a specific commit.
+* **Extremely lightweight** - Where other systems implement branches as file system copies, a branch in Git is just a 
+  moving pointer to a specific commit.
 * **Local-first** - Creating and working with branches does not require connecting to a centralized server.
 * **Easy to use** - Creating, switching, merging, and deleting branches are all lightweight processes that can be done
-  locally. Instead of branch creation and management requiring administrative work, Git encourages users to create them
-  routinely and without coordination to experiment or implement changes.
+  locally. Instead of requiring administrative actions to create and manage branches, Git encourages users to create 
+  them routinely and without coordination to experiment or implement changes.
 * **Isolated** - While this concept is not unique to Git, it is nonetheless key. A branch creates a development line 
   that is isolated from other development (at least until it needs to be merged). That allows the developer to focus on
   the changes being made, rather than continuously integrating with the work of others.
 
 ## What actually _is_ a branch?
 If you have experience with other version control systems, try to forget how they implement branches. In Git, a branch
-is simply a named commit from which new changes are made. _All_ changes in Git are on a branch, starting with the
+is simply a named commit from which new changes are made. _All_ changes in Git are made on a branch, starting with the
 "default" branch (typically named `main` or `master`). Let's look at this with our test repository.
 
 > [!NOTE]
@@ -27,16 +28,17 @@ is simply a named commit from which new changes are made. _All_ changes in Git a
 > and there's nothing magical about it _being_ the default branch other than it is the first branch created in your
 > repository.
 
-Let's assume after testing, your repository currently has the following commits (remember, a commit points to its 
-parent, which is why the arrows point "backwards"):
+Let's assume after testing the previous sections, your repository currently has the following commits (remember, a 
+commit points to its parent, which is why the arrows point "backwards"). Here we've included commit comments to help
+you get oriented, but we'll remove them below to allow space for other elements:
+
+We also introduce an additional concept before delving into branches: `HEAD`. `HEAD` is a pointer that represents your 
+current working environment. Commands like `git commit`, `git checkout`, and `git switch` all automatically move this 
+pointer. So far, we've used `git commit`, which creates a new commit object from the contents of the staging area. Along
+with creating that object, `git commit` also changes `HEAD` to point to the new commit. So for our repository, `HEAD` 
+currently points to commit `9409929`.
 
 ![Initial repository state](./resources/branching/ex1.png)
-
-Before we discuss the branch we're on, let's introduce one additional concept: `HEAD`. `HEAD` is a pointer that 
-represents your current working environment. Commands like `git commit`, `git checkout`, and `git switch` all 
-automatically move the pointer. So far, we've used `git commit`, which creates a new commit object from the contents of
-the staging area and then changes `HEAD` to point to the new commit. So for our repository, `HEAD` points to commit 
-`9409929`.
 
 When we created our repository (using `git init`), Git automatically created our first branch[^1], called `main`. This
 is just another pointer, and is also automatically moved with each commit (to the branch) as well. So here is our graph 
