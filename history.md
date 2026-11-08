@@ -39,8 +39,7 @@ as a free alternative and rapidly became the de facto choice for source control.
 * **Perforce** - Version control optimized to handle giant codebases and binary assets. Dominant in game development
   where large amounts of binary data are common.
 * **AccuRev** - A hybrid between centralized and distributed version control, AccuRev is notable for creating a unique
-  "stream-based" architecture which treated branch-like development with CI/CD pipelines (e.g. 
-  _Dev --> Testing --> Release_).
+  "stream-based" branching and promotion model (e.g. _Dev --> Testing --> Release_).
 
 ---
 [Home](./README.md) | Previous | [Next: The Git mindset](./git-mindset.md)

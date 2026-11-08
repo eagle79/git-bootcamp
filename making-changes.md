@@ -15,16 +15,17 @@ Git defines three primary states/areas for file changes to reside in:
 * **The index (staging area)** - Provides a "staging area" called the "index" for assembling a desired change to history
   (called a commit). Though technically the term "index" is more correct, most users call this the "staging area" or 
   just "staging". The staging area is a _tool_ for planning commits. As you modify files for a given commit, you can 
-  add/remove those modifications to/from the index (refered to as "staging" the changes). Or if you are working on
-  multiple (non-overlapping) modifications, you can stage all the files for one modification and commit that it only.
+  add/remove those modifications to/from the index (referred to as "staging" the changes). Or if you are working on
+  multiple (non-overlapping) modifications, you can stage all the files for one modification and commit that fileset
+  only.
 * **History** - Official record of commits to the repository. Commits are _always_ created from the staging area, which
   acts as a representation the intended change. Once created, a commit cannot be modified[^1]. 
 
 > [!NOTE]
 > It's useful to be aware of the difference between "tracked" and "untracked" files. A "tracked" file is one that has
 > been at least staged (though it will become "untracked" again if the file is unstaged without being committed). All 
-> other files are "untracked" in that the git repository is "unaware" of their presence 
-> (though git itself may reference them in commands like `git status`).
+> other files are "untracked" in that the git repository is "unaware" of their presence (though git itself may reference
+> them in commands like `git status`).
 
 > [!IMPORTANT]
 > Let's prepare an initial state for our test repository. In the root of the repository directory, create three files 
@@ -138,7 +139,8 @@ changes to? For this (and a lot of other scenarios), Git provides the `git diff`
 use this command, but these are some typical scenarios:
 * `git diff` (no arguments) - changes in the working directory that haven't been staged
 * `git diff --staged` - changes that are staged, but not yet committed
-* `git diff HEAD` - all changes (staged and unstaged) as compared to the last commit
+* `git diff HEAD` - all changes (staged and unstaged) as compared to the last commit (since we've not yet made a commit,
+  this command will result in an error).
 
 Try `git diff --staged` on your test repository:
 ```bash

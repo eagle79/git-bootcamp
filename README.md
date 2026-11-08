@@ -6,17 +6,21 @@ This tutorial is designed for experienced developers who are new to Git. While w
 is on the way Git works to track changes in a flexible manner. 
 
 ## Setup
-Before getting started, please ensure the system you're using has Git installed and configured. This guide will show
-examples using bash-style syntax, but most commands (especially Git commands) will be similar on Windows. This guide
-does not detail how to ensure the necessary tools are installed.
+Before getting started, please ensure the system you're using has Git installed and configured. This guide does not 
+detail how to ensure Git is installed.
+
+> [!NOTE]
+> This guide will show examples using bash-style syntax, but Git commands will largely be the same on Windows (except 
+> file paths). The reader will need to translate other commands depending on what terminal they use. If a bash-like
+> environment is desired, consider using compatible shells such as Git Bash.
 
 Verify and configure Git using the following commands:
 ```bash
-# Check git installation
+# Check that Git is installed
 $ git --version
 # You should see something like "git version 2.x.y"
 
-# Set your "commit" identity globally
+# Set your commit identity globally
 $ git config --global user.name "Your Name"
 $ git config --global user.email "you@example.com"
 
@@ -32,9 +36,9 @@ $ git config user.email "you@example.com"
 |   2. | [The Git mindset](./git-mindset.md)         | How Git differs from previous version control systems. |
 |   3. | [Getting started](./getting-started.md)     | How to clone or create a repository to work with.      |
 |   4. | [Making changes](./making-changes.md)       | Making and committing changes.                         |
-|   5. | [Review & undo](./review-and-undo.md)       | Reviewing commit history and undoing changes           |
+|   5. | [Review & undo](./review-and-undo.md)       | Reviewing commit history and undoing changes.          |
 |   6. | [Branching out](./branching.md)             | Parallel work with branches.                           |
-|   7. | [Collaborating](./collaborating.md)         | Sharing work - local vs. remote.                       |
+|   7. | [Collaborating](./collaborating.md)         | Sharing work: local vs. remote.                        |
 |  A1. | [Appendix: Terminology](./terminology.md)   | Common terms.                                          |
 
 ---

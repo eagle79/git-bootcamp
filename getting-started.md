@@ -24,7 +24,7 @@ $ cd ~/repos/my-repo
 ```
 This will:
 * Initialize the repository's hidden `.git` folder
-* Create an initial (empty) default branch (typically `main` or `master`)
+* Create an initial (empty) default branch[^1] (typically `main` or `master`)
 
 > [!IMPORTANT]
 > Let's do this now. Open a terminal, and create a local test repository named `my-repo` using `git init`.
@@ -54,7 +54,7 @@ You can use the command `git clone` to clone an existing repository. The `git cl
 > go into detail about how to set up authentication or how to get the necessary URL.
 
 This will:
-* Download a copy of the commit history and object database (the `./.git` folder).[^1]
+* Download a copy of the commit history and object database (the `./.git` folder).[^2]
 * Set up a default remote pointer named `origin` (we will discuss this more in [Branching out](./branching.md)).
 * Check out the default branch (typically `main` or `master`) into your working directory.
 
@@ -96,10 +96,10 @@ repository. A few highlights:
 * `refs/` - this directory is the reference store; it contains pointers to tracking branches, tags, and remotes.
 
 ---
-[Home](./README.md) | [Previous: The Git mindset](./git-mindset.md) | [Next: Making changes](./making-changes)
+[Home](./README.md) | [Previous: The Git mindset](./git-mindset.md) | [Next: Making changes](./making-changes.md)
 
 Copyright © 2026 Aaron Craven.
 
-[^1]: Technically a normal clone fetches all history reachable from the remote's advertised refs (active branches, tags,
+[^1]: Technically an "unborn initial branch". This is explained in more detail later on.
+[^2]: Technically a normal clone fetches all history reachable from the remote's advertised refs (active branches, tags,
     etc.). In practice, this is all content a user needs for most purposes.
-[^2]: This is a simplification of Git internals. The reality is a more complicated, but unimportant for this document.

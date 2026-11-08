@@ -7,11 +7,11 @@ create more complex software than a single person can create alone. Git allows f
 A remote is simply a named URL pointing to another repository (usually located on a different machine and accessed via
 the network).
 
-Because Git is fully distributed, every copy of a repository has its own complete history, commit graph, and branches. 
+Because Git is fully distributed, every copy of a repository has its own complete history, commit graph, and branches.
 A remote is not a live database connection; it is a destination alias saved in your repository config (usually named 
 `origin`) that (in effect) points to a network-accessible repository you share with your team.
 
-# Setting up a remote
+## Setting up a remote
 So how do we set up a remote? There are two ways. We can add a remote to an existing repository, or it will be added
 automatically when we clone an existing repository (the latter approach is by far the most common). But since we've 
 already got an existing test repository, we'll do things the hard way! 
@@ -40,7 +40,7 @@ already got an existing test repository, we'll do things the hard way!
 > ```bash
 > $ git branch -M main
 > ```
-> Now get retrieve the repository URL from the repository webpage and set it as the origin for your local repository:
+> Now retrieve the repository URL from the repository webpage and set it as the origin for your local repository:
 > ```bash
 > $ git remote add origin git@github.com:johndoe/my-repo.git
 > ```
@@ -122,8 +122,8 @@ the remote.
 >  * [new branch]      newbranch -> newbranch
 > 
 > # set the upstream target for the new branch
-> $ git branch -u origin newbranch
-> branch 'newbranch' set up to track 'origin/main'.
+> $ git branch --set-upstream-to=origin/newbranch
+> branch 'newbranch' set up to track 'origin/newbranch'.
 > ```
 >
 > Before moving on, switch back to `main`
@@ -135,7 +135,7 @@ the remote.
 
 ### Switching to a branch on the remote
 Other users will be creating branches as well, and we may need to be able to interact with them. For that, we need to
-somehow find out the name of a remote branch. We can use `git branch -r` (lists remote branch names) to see them all 
+somehow find out the name of a remote branch. We can use `git branch -r` (lists remote branch names) to see all 
 remote branch names (if you don't see the expected branch, you might need to run `git fetch`). Once you know the name, 
 `git switch <branchname>` works in the same manner. If Git doesn't find  the branch locally, it automatically looks for
 it in the remote branches, then sets up a new local branch that tracks the remote branch.
@@ -148,8 +148,7 @@ it in the remote branches, then sets up a new local branch that tracks the remot
 
 ### Other operations
 Other operations, especially deleting and renaming remote branches can be performed, but must be handled with care, as
-they can break connections on other developers' clones of the repository. This document does not go into detail for 
-these operations.
+they can break connections on other developers' clones of the repository. This document does not cover these operations.
 
 ## Synchronizing simple changes with the remote
 While absolutely necessary for a team environment, dealing with a remote repository adds an additional layer of 
@@ -161,9 +160,9 @@ Changes will be made (pushed) to the remote by other users from time to time, an
 on your local repository being made aware of them. Git provides the `git fetch` command for this purpose.
 
 `git fetch` is designed to do just one thing: make sure your local repository has up-to-date copies of all necessary
-information stored on the remote. It is _entirely_ safe to run at any time: it will not modify your local branches, your
-staging area, or your working directory. It simply makes Git aware of what's currently on the remote and downloads
-everything you might need to work with it.
+information stored on the remote. It is safe to run at any time: it will not modify your local branches, your
+staging area, or your working directory[^1]. It simply makes Git aware of 
+what's currently on the remote and downloads everything you might need to work with it.
 
 Let's illustrate this. On the GitHub site, you should be able to _directly_ edit files in your repository using the 
 webpage. 
@@ -212,19 +211,19 @@ Our repository is blissfully unaware that we've modified a file on the remote.
 
 ### Incoming changes
 > [!IMPORTANT]
-> Without going into detail, execute the following command to ensure your default settings for this repository match
-> the expected behavior. If you don't set this, you may get an error asking you to "specify how to reconcile" divergent
-> branches.
+> Execute the following command to ensure your default settings for this repository match the expected behavior. If you
+> don't set this, you may get an error asking you to "specify how to reconcile" divergent branches. Rebasing (a 
+> powerful tool for bringing in changes by "rewriting" local history) is not explained in this guide.
 > ```bash
 > $ git config pull.rebase false
 > ```
 
 Now our local knows that the remote has commits we don't have (`Your branch is behind 'origin/main' by 1 commit`). It 
-also knows that we can easily bring these commits in easily (`and can be fast-forwarded.`). How do we bring the changes
-in? The same way as with a local branch: we merge!
+also knows that we can bring these commits in easily (`and can be fast-forwarded.`). How do we bring the changes in? 
+The same way as with a local branch: we merge!
 
 > [!IMPORTANT]
-> Excecute a `git pull`:
+> Execute a `git pull`:
 > ```bash
 > $ git pull
 > Updating 9fed0d5..f3c26af
@@ -235,7 +234,7 @@ in? The same way as with a local branch: we merge!
 Wait. But I said "merge" not "pull". What gives? 
 
 `git pull` is shorthand for issuing `git fetch` followed by `git merge <upstream-name>` and is the standard command when
-retrieving changes on a remote into a local branch. Now our history should show  the commit from GitHub.
+retrieving changes on a remote into a local branch. Now our history should show the commit from GitHub.
 ```bash
 $ git log --oneline
 f3c26af (HEAD -> main, origin/main, origin/HEAD) Add a new line to baz.txt
@@ -252,7 +251,6 @@ So now, let's create our own change.
 Now check status:
 ```bash
 $ git status
-[main 0534596] Create local change
 On branch main
 Your branch is ahead of 'origin/main' by 1 commit.
   (use "git push" to publish your local commits)
@@ -291,12 +289,12 @@ Git now knows we have a local change that is not represented on the remote.
 > branch for our local `main` branch when we cloned the repository. Without that, we would need to use 
 > `git push origin main`. There are a variety of ways to set an upstream for a branch if it's not already set: 
 > * During a pull or push operation, include the `--set-upstream` flag
-> * On an existing branch, issue the command `git branch -u origin/<branch-name>`
+> * On an existing branch, issue the command `git branch --set-upstream-to=origin/<branchname>`
 > * Never have to deal with it again: `git config --global push.autoSetupRemote true`. Git will automatically set the
 >   upstream for every branch on the first "push" operation (including the first "push" of a local branch to create its
 >   remote).
 
-`git push` is a single, unified operation that performs the following steps as an _atomic_ operation:
+`git push` is a single, unified operation that performs the following steps as an _atomic_ operation[^2]:
 * Upload all commits (and associated objects) on the current branch that do not yet exist on the remote.
 * Update references on the remote (notably the branch pointer) to point to the latest commit.
 
@@ -305,13 +303,13 @@ Git now knows we have a local change that is not represented on the remote.
 > remote. It will only add commits and move branch pointers. 
 > 
 > This is intentional: You can never push a change to the remote that would overwrite someone else's work 
-> _unintentionally_ (because your local branch is "behind" the remote branch)[^1]. Git will _reject_ such a push outright. 
-> You _must_ update your local with the changes on the remote first and reconcile any conflicts. Only then can you push
-> the results of that reconciliation to the remote. We'll look at that next.
+> _unintentionally_ (because your local branch is "behind" the remote branch)[^3]. Git will _reject_ such a push 
+> outright. You _must_ update your local with the changes on the remote first and reconcile any conflicts. Only then 
+> can you push the results of that reconciliation to the remote. We'll look at that next.
 
 ## Handling divergent remote history
 Since we're working in a disconnected environment, divergent changes are guaranteed to happen eventually. The remote is
-quite literally another branch that someone else might be commiting to (it just happens to reside on a different 
+quite literally another branch that someone else might be committing to (it just happens to reside on a different 
 machine). So the strategies for handling those changes are very similar to those for handling diverging histories on the
 local. 
 
@@ -416,7 +414,7 @@ Again we do this locally.
 > Resolve the conflict by editing the file, then stage and commit it. 
 
 With the commit, we've merged the changes on the _remote_ branch into our local. But we still need to get the changes
-of the mrege into the remote. 
+of the merge into the remote. 
 
 > [!IMPORTANT] 
 > Check status and push to the remote:
@@ -449,7 +447,11 @@ of the mrege into the remote.
 
 Copyright © 2026 Aaron Craven.
 
-[^1]: While true, `git push` can be used with the `--force` flag to tell Git to update the state of the remote to the 
+[^1]: This is not to say that the command has no effect. It updates remote-tracking refs, which are stored locally.
+[^2]: `git push` is atomic for each "ref" that is pushed independently. If you push multiple branches at the same time 
+    (e.g. `git push origin main newbranch otherbranch`), each branch will be separately pushed in a separate atomic 
+    operation unless the `--atomic` flag is provided (and the server supports it).
+[^3]: While true, `git push` can be used with the `--force` flag to tell Git to update the state of the remote to the 
     exact state of the local repository no matter what. A slightly safer option (`--force-with-lease`) does the same 
     thing but automatically aborts if the actual state of the remote has changed since the last fetch. Both approaches 
-    are dangerous and are used operations this guide does not cover (rebasing, squash commits, ammending commits, etc.)
+    are dangerous and are used operations this guide does not cover (rebasing, squash commits, amending commits, etc.)

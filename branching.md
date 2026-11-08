@@ -47,7 +47,7 @@ graph with both `HEAD` and `main` annotated:
 ![Annotated repository state](./resources/branching/ex2.png)
 
 ## Creating and switching branches
-The primary tool for working with branches are the commands `git branch` and `git switch`:
+The primary tools for working with branches are the commands `git branch` and `git switch`:
 * `git branch` is a branch management tool used to create, list, rename, and delete branches
 * `git switch` is a branch navigation tool that moves your working environment (`HEAD`) to a different branch. It also
   includes convenience options that do the work of certain `git branch` operations.
@@ -105,7 +105,7 @@ There are actually _many_ ways to merge changes in git, but the primary techniqu
 > require it to perform a three-way merge by supplying the `--no-ff` flag.
 
 > [!IMPORTANT]
-> Merge our changes in `edits` to `master` by first switching to `main`, and then issuing a `git merge` command against
+> Merge our changes in `edits` to `main` by first switching to `main`, and then issuing a `git merge` command against
 > the `edits` branch. (By default, `git merge` always merges _into_ the currently selected branch.)
 > ```bash
 > $ git switch main
@@ -135,7 +135,7 @@ Let's do something a little more complex.
 > * Switch back to the `main` branch
 > * Modify _the same line_ (but with different text) in `bar.txt`. Save, stage, and commit.
 
-We now have two divergent changes. Our graph looks like this (we've removed some  older nodes to keep the graph from
+We now have two divergent changes. Our graph looks like this (we've removed some older nodes to keep the graph from
 outgrowing your screen):
 
 ![Diverging histories](./resources/branching/ex6.png)

@@ -40,8 +40,8 @@ really just talking about an object that represents a particular snapshot of the
 
 > [!NOTE]
 > In most examples in this text, you'll see a commit hash shown as an abbreviated "prefix" (e.g. `4a66ef9`), which is
-> common practice when using Git. All Git commands will accept _any_ hash prefix so long as it unambiguously references
-> a single commit. Seven characters is a common standard that works for most scenarios.
+> common practice when using Git. All Git commands that accept object hashes will accept _any_ hash prefix so long as 
+> it unambiguously references a single commit. Seven characters is a common standard that works for most scenarios.
 
 ## The DAG (commit graph)
 The DAG is a way of representing change history by linking commit objects together. DAG stands for Directed Acyclic 
@@ -75,7 +75,7 @@ with the remote, pulling down new changes and/or pushing up changes made locally
 
 Copyright © 2026 Aaron Craven.
 
-[^1]: While SHA-1 is the current default, SHA-256 repositories are also fully supported and expected to become the
-    future default for new repositories.
+[^1]: While SHA-1 is the current default, SHA-256 repositories are also fully supported and slated to become the default
+    starting in Git 3.0.
 [^2]: Technically a normal clone fetches all _reachable_ history from the remote's advertised refs (active branches, 
     tags, etc.). In practice, this is all the content a user will ever need for most purposes.
